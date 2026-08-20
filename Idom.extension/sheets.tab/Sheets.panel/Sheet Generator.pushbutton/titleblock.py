@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from Autodesk.Revit.DB import FilteredElementCollector, Document, FamilySymbol
 from pyrevit import DB, forms
  
