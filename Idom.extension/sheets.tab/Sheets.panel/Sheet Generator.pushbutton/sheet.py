@@ -7,7 +7,7 @@ from pyrevit import script
 from pyrevit import forms
 from pyrevit import DB
 from pyrevit.DB import ViewSheet 
-from Autodesk.Revit.DB import ViewSheet, FilteredElementCollector, Document, FamilySymbol, Transaction, SheetCollection
+from Autodesk.Revit.DB import ViewSheet, FilteredElementCollector, Document, FamilySymbol, Transaction, SheetCollection, Viewport
 from titleblock import get_all_titleblock, get_tiitleblocks_names
 from Collections import get_all_collection, get_collection_by_name, create_sheet_collection
 
@@ -79,3 +79,8 @@ def create_sheet (doc: Document, name, Titleblock_name, sheetcol_name):
             )
         return None
 
+def get_viewports(sheet: ViewSheet):
+    return sheet.GetAllViewports() #type: List
+
+    
+    
