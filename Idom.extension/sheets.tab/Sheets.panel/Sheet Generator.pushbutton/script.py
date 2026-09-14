@@ -11,8 +11,8 @@ doc = __revit__.ActiveUIDocument.Document  # type: Document
 uidoc = __revit__.ActiveUIDocument
 output = script.get_output()
 
-
-def get_all_sheets(doc):
+"""
+ def get_all_sheets(doc):
     sheets = FilteredElementCollector(doc) \
         .OfClass(ViewSheet) \
         .ToElements()
@@ -32,4 +32,10 @@ for sheet in sheets: # type : ViewSheet
     print(sheet.Name)
     print (get_collection_by_id(get_all_collection(doc), sheet.SheetCollectionId).Name)
    # print (get_collection_by_name(get_all_collection(doc), "asjsaj").Id)
-    colec = create_sheet_collection(doc, "B4468-DD-IDIC-1060")
+    colec = create_sheet_collection(doc, "B4468-DD-IDIC-1060") """
+selection   = uidoc.Selection
+
+from Autodesk.Revit.UI.Selection import ObjectType
+
+selected_elements = selection.PickElementsByRectangle('Title Here')
+print(selected_elements)

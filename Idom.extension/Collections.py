@@ -1,6 +1,7 @@
 
 from Autodesk.Revit.DB import FilteredElementCollector, Transaction, SheetCollection
 from pyrevit import forms
+from Autodesk.Revit.UI.Selection import Selection
 
 def get_all_collection(doc):
     collections =  FilteredElementCollector(doc).OfClass(SheetCollection).ToElements()
