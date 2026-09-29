@@ -44,7 +44,7 @@ def exist_sheet(doc, name):
     return False   
 
 
-def create_sheet (doc, name, Titleblock_name, sheetcol_name):
+""" def create_sheet (doc, name, Titleblock_name, sheetcol_name):
     number = 1
     sheet = exist_sheet(doc, name) #type : ViewSheet
     if sheet:
@@ -72,7 +72,7 @@ def create_sheet (doc, name, Titleblock_name, sheetcol_name):
                 "No se pudo crear la hoja :\n\n{}".format(e),
                 title="Error"
             )
-        return None
+        return None """
 
 def get_viewports(doc, sheet):
     ids = sheet.GetAllViewports()

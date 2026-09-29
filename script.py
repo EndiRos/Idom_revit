@@ -10,22 +10,42 @@ from Collections import *
 from sheet import *
 from viewport import *
 from System.Collections.Generic import List
+import os
 
+class CollectionWindow(forms.WPFWindow):
+    def __init__(self, collections):
+        self.collections = collections
 
+        xaml_path = os.path.join(
+            os.path.dirname(__file__),
+            "form.xaml"
+        )
 
+        forms.WPFWindow.__init__(self, xaml_path)
+
+        self.collections_list.ItemsSource = collections
+
+    def accept_click(self, sender, args):
+        self.selected_collections = list(
+            self.collections_list.SelectedItems
+        )
+
+        self.Close()
+
+    def cancel_click(self, sender, args):
+        self.selected_collections = []
+        self.Close()
 
 doc = __revit__.ActiveUIDocument.Document  # type: Document
 uidoc = __revit__.ActiveUIDocument #type: UIDocument
 
 collections = list(get_all_collection(doc)) #type: SheetCollection
 
-Sele_collections = forms.SelectFromList.show(
-    collections,
-    title="Selecciona coleciones",
-    name_attr="Name",
-    multiselect=True,
-    button_name="Aceptar"
-    )
+window = CollectionWindow(collections)
+window.ShowDialog()
+
+Sele_collections = window.selected_collections
+
 if not Sele_collections:
     forms.alert("No se ha seleccionado ninguna colección")
     script.exit()
@@ -69,3 +89,5 @@ except Exception as error:
         "No se pudieron renombrar las vistas:\n\n{}".format(error),
         title="Error"
     )
+
+

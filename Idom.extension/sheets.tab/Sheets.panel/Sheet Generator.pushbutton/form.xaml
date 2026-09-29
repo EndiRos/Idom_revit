@@ -1,0 +1,276 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Crear Sheet"
+    Height="650"
+    Width="600">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- GroupBox Configuracion -->
+            <RowDefinition Height="*"/>
+            <!-- GroupBox Selecciona vistas -->
+            <RowDefinition Height="Auto"/>
+            <!-- Botones OK/Cancel -->
+        </Grid.RowDefinitions>
+
+        <!-- ============ CONFIGURACION ============ -->
+        <GroupBox Header="Configuración"
+                  Grid.Row="0"
+                  Margin="0,0,0,10">
+
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- ===== COLUMNA IZQUIERDA ===== -->
+                <Grid Grid.Column="0" Margin="0,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0"
+                           Content="Colección:"
+                           HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="S_Collection"
+                              Grid.Row="0" Grid.Column="1"
+                              SelectionChanged="collection_selected"
+                              DisplayMemberPath="Name"
+                              Margin="5"/>
+
+                    <Label Grid.Row="2" Grid.Column="0"
+                           Content="Nombre hoja:"
+                           HorizontalAlignment="Right"/>
+                    <TextBox x:Name="S_sheet_name"
+                             Grid.Row="2" Grid.Column="1"
+                             Margin="5"/>
+
+                    <Label Grid.Row="3" Grid.Column="0"
+                           Content="Título plano:"
+                           HorizontalAlignment="Right"/>
+                    <TextBox x:Name="S_sheet_title"
+                             Grid.Row="3" Grid.Column="1"
+                             SelectionChanged="sheet_title"
+                             Margin="5"/>
+
+                    <Label Grid.Row="1" Grid.Column="0"
+                           Content="Formato:"
+                           HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="S_Titleblock"
+                              Grid.Row="1" Grid.Column="1"
+                              SelectionChanged="titleblock_selected"
+                              DisplayMemberPath="Name"
+                              Margin="5"/>
+                </Grid>
+
+                <!-- ===== COLUMNA DERECHA ===== -->
+                <Grid Grid.Column="1" Margin="10,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                        <Button Grid.Row="0"
+                            Width="120"
+                            Height="20"
+                            Margin="5"
+                            Content="Nueva Colección"
+                            Click="new_collection_click"
+                            HorizontalAlignment="Left"/>
+                    <Button Grid.Row="0"
+                            Grid.Column="1"
+                            Width="120"
+                            Height="20"
+                            Margin="5"
+                            Content="Nueva hoja"
+                            Click="new_sheet_click"
+                            HorizontalAlignment="Left"/>
+
+                    <!-- futuros campos aquí -->
+                </Grid>
+
+            </Grid>
+        </GroupBox>
+
+        <!-- ============ SELECCIONA VISTAS ============ -->
+        <GroupBox Header="Vistas" Grid.Row="1">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Filtro -->
+                    <RowDefinition Height="*"/>
+                    <!-- Selecciona vistas -->
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Filtro de vistas"
+          Grid.Row="0"
+          Margin="0,0,0,10">
+
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton x:Name="rb_Todas"
+                     Grid.Row="0" Grid.Column="0"
+                     GroupName="ViewFilter"
+                     Content="Todas"
+                     Margin="5"
+                     IsChecked="True"
+                     Checked="filter_changed"/>
+
+                        <RadioButton x:Name="rb_Plantas"
+                     Grid.Row="1" Grid.Column="0"
+                     GroupName="ViewFilter"
+                     Content="Plantas"
+                     Margin="5"
+                     Checked="filter_changed"/>
+
+                        <RadioButton x:Name="rb_Alzados"
+                     Grid.Row="2" Grid.Column="0"
+                     GroupName="ViewFilter"
+                     Content="Alzados"
+                     Margin="5"
+                     Checked="filter_changed"/>
+
+                        <RadioButton x:Name="rb_Secciones"
+                     Grid.Row="0" Grid.Column="1"
+                     GroupName="ViewFilter"
+                     Content="Secciones"
+                     Margin="5"
+                     Checked="filter_changed"/>
+
+                        <RadioButton x:Name="rb_3D"
+                     Grid.Row="2" Grid.Column="1"
+                     GroupName="ViewFilter"
+                     Content="3D"
+                     Margin="5"
+                     Checked="filter_changed"/>
+
+                        <RadioButton x:Name="rb_Detalles"
+                     Grid.Row="1" Grid.Column="1"
+                     GroupName="ViewFilter"
+                     Content="Detalles"
+                     Margin="5"
+                     Checked="filter_changed"/>
+
+                        <RadioButton x:Name="rb_tablas"
+                     Grid.Row="0" Grid.Column="2"
+                    GroupName="ViewFilter"
+                    Content="Tablas"
+                    Margin="5"
+                    Checked="filter_changed"/>
+                     
+                        <CheckBox x:Name="chk_OcultarUsadas"
+                    Grid.Row="2" Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Content="Ocultar vistas ya colocadas en hojas"
+                    Margin="5"
+                    Checked="filter_changed"
+                    Unchecked="filter_changed"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Selecciona vistas"
+                          Grid.Row="1">
+
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox x:Name="ViewsList"
+                                 Grid.Column="0"
+                                 DisplayMemberPath="Name"
+                                 SelectionMode="Extended"
+                                 Margin="0,0,5,0"/>
+
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Width="40">
+                            <Button Content="&gt;"
+                                    Width="30" Height="30"
+                                    Margin="5"
+                                    Click="add_view_click"/>
+                            <Button Content="&lt;"
+                                    Width="30" Height="30"
+                                    Margin="5"
+                                    Click="remove_view_click"/>
+                        </StackPanel>
+
+                        <ListBox x:Name="SelectedViews"
+                            Grid.Column="2"
+                            SelectionMode="Extended"
+                            Margin="5,0,0,0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Scale}" Margin="2" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Title}" Margin="2"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                </ListBox>
+                    </Grid>
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>
+
+        <!-- ============ BOTONES OK/CANCEL ============ -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+
+            <Button x:Name="btnOK"
+                    Width="80"
+                    Margin="5"
+                    Content="Crear"
+                    Click="accept_click"/>
+
+            <Button x:Name="btnCancel"
+                    Width="80"
+                    Margin="5"
+                    Content="Cancel"
+                    Click="cancel_click"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>

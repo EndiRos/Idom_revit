@@ -1,7 +1,6 @@
 
 from Autodesk.Revit.DB import FilteredElementCollector, Transaction, SheetCollection
 from pyrevit import forms
-from Autodesk.Revit.UI.Selection import Selection
 
 def get_all_collection(doc):
     collections =  FilteredElementCollector(doc).OfClass(SheetCollection).ToElements()
@@ -22,7 +21,7 @@ def get_collection_by_name(collects , name):
 
 def get_collection_by_id(collects, id):
 
-    for coll in collects:  # type: SheetCollection
+    for coll in collects:  # type : SheetCollection
 
         if coll.Id == id:
             return coll
@@ -49,4 +48,5 @@ def create_sheet_collection(doc, name):
             title="Error"
         )
         return None
+
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Autodesk.Revit.DB import FilteredElementCollector, Document, FamilySymbol, Element
+from Autodesk.Revit.DB import FilteredElementCollector, Document, FamilySymbol
 from pyrevit import DB, forms
  
 
@@ -8,12 +8,11 @@ def get_all_titleblock(doc):
     blocks = FilteredElementCollector(doc)\
         .OfClass(FamilySymbol)\
         .OfCategory(DB.BuiltInCategory.OST_TitleBlocks)\
-        .ToElements() # type: FamilySymbol
+        .ToElements() # type : FamilySymbol
     if blocks.Count == 0:
         forms.alert ("No existe formatos en el documennto",
                      title = "info not titleblock")
         return False
-    print(type(blocks[0]))
     return blocks
 
 def get_titleblock_by_name (blocks, name):
@@ -27,6 +26,5 @@ def get_tiitleblocks_names(doc):
     names = []
     blocks = get_all_titleblock(doc)
     for bl in blocks:
-        name = Element.Name.GetValue(bl)
-        names.append(name)
+        names.append(bl.Name)
     return names
