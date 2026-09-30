@@ -3,7 +3,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Crear Sheet"
     Height="650"
-    Width="600">
+    Width="800">
+    <Window.Resources>
+        <Style x:Key="CellEditBox" TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="2,1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#FF9DB7D5"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#FF3B7DD8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -122,8 +142,8 @@
                 </Grid.RowDefinitions>
 
                 <GroupBox Header="Filtro de vistas"
-          Grid.Row="0"
-          Margin="0,0,0,10">
+                         Grid.Row="0"
+                         Margin="0,0,0,10">
 
                     <Grid Margin="5">
                         <Grid.RowDefinitions>
@@ -138,62 +158,62 @@
                         </Grid.ColumnDefinitions>
 
                         <RadioButton x:Name="rb_Todas"
-                     Grid.Row="0" Grid.Column="0"
-                     GroupName="ViewFilter"
-                     Content="Todas"
-                     Margin="5"
-                     IsChecked="True"
-                     Checked="filter_changed"/>
+                            Grid.Row="0" Grid.Column="0"
+                            GroupName="ViewFilter"
+                            Content="Todas"
+                            Margin="5"
+                            IsChecked="True"
+                            Checked="filter_changed"/>
 
                         <RadioButton x:Name="rb_Plantas"
-                     Grid.Row="1" Grid.Column="0"
-                     GroupName="ViewFilter"
-                     Content="Plantas"
-                     Margin="5"
-                     Checked="filter_changed"/>
+                            Grid.Row="1" Grid.Column="0"
+                            GroupName="ViewFilter"
+                            Content="Plantas"
+                            Margin="5"
+                            Checked="filter_changed"/>
 
                         <RadioButton x:Name="rb_Alzados"
-                     Grid.Row="2" Grid.Column="0"
-                     GroupName="ViewFilter"
-                     Content="Alzados"
-                     Margin="5"
-                     Checked="filter_changed"/>
+                            Grid.Row="2" Grid.Column="0"
+                            GroupName="ViewFilter"
+                            Content="Alzados"
+                            Margin="5"
+                            Checked="filter_changed"/>
 
                         <RadioButton x:Name="rb_Secciones"
-                     Grid.Row="0" Grid.Column="1"
-                     GroupName="ViewFilter"
-                     Content="Secciones"
-                     Margin="5"
-                     Checked="filter_changed"/>
+                            Grid.Row="0" Grid.Column="1"
+                            GroupName="ViewFilter"
+                            Content="Secciones"
+                            Margin="5"
+                            Checked="filter_changed"/>
 
                         <RadioButton x:Name="rb_3D"
-                     Grid.Row="2" Grid.Column="1"
-                     GroupName="ViewFilter"
-                     Content="3D"
-                     Margin="5"
-                     Checked="filter_changed"/>
+                            Grid.Row="2" Grid.Column="1"
+                            GroupName="ViewFilter"
+                            Content="3D"
+                            Margin="5"
+                            Checked="filter_changed"/>
 
                         <RadioButton x:Name="rb_Detalles"
-                     Grid.Row="1" Grid.Column="1"
-                     GroupName="ViewFilter"
-                     Content="Detalles"
-                     Margin="5"
-                     Checked="filter_changed"/>
+                            Grid.Row="1" Grid.Column="1"
+                            GroupName="ViewFilter"
+                            Content="Detalles"
+                            Margin="5"
+                            Checked="filter_changed"/>
 
                         <RadioButton x:Name="rb_tablas"
-                     Grid.Row="0" Grid.Column="2"
-                    GroupName="ViewFilter"
-                    Content="Tablas"
-                    Margin="5"
-                    Checked="filter_changed"/>
+                            Grid.Row="0" Grid.Column="2"
+                            GroupName="ViewFilter"
+                            Content="Tablas"
+                            Margin="5"
+                            Checked="filter_changed"/>
                      
                         <CheckBox x:Name="chk_OcultarUsadas"
-                    Grid.Row="2" Grid.Column="2"
-                    Grid.ColumnSpan="2"
-                    Content="Ocultar vistas ya colocadas en hojas"
-                    Margin="5"
-                    Checked="filter_changed"
-                    Unchecked="filter_changed"/>
+                            Grid.Row="2" Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            Content="Ocultar vistas ya colocadas en hojas"
+                            Margin="5"
+                            Checked="filter_changed"
+                            Unchecked="filter_changed"/>
                     </Grid>
                 </GroupBox>
 
@@ -226,25 +246,59 @@
                                     Click="remove_view_click"/>
                         </StackPanel>
 
-                        <ListBox x:Name="SelectedViews"
+                       <ListView x:Name="SelectedViews"
                             Grid.Column="2"
                             SelectionMode="Extended"
-                            Margin="5,0,0,0">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="60"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Scale}" Margin="2" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding Title}" Margin="2"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                </ListBox>
+                            Margin="5,0,0,0"
+                            BorderBrush="#FFB0B0B0"
+                            ScrollViewer.HorizontalScrollBarVisibility="Auto">
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="2,3"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="True">
+
+                                <!-- Vista: solo lectura -->
+                                <GridViewColumn Header="Vista" Width="110">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTip="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <!-- Escala: editable -->
+                                <GridViewColumn Header="Escala" Width="60">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Scale, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                    Style="{StaticResource CellEditBox}"
+                                                    HorizontalContentAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <!-- Título: editable -->
+                                <GridViewColumn Header="Título Vista" Width="160">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                    Style="{StaticResource CellEditBox}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                            </GridView>
+</ListView.View>
+                       </ListView>
                     </Grid>
                 </GroupBox>
 

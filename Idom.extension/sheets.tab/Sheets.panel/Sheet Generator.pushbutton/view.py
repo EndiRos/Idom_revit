@@ -1,9 +1,7 @@
 from pyrevit import forms
-from Autodesk.Revit.DB import (
-    FilteredElementCollector, View, ViewSheet, Element,
-    ViewPlacementOnSheetStatus
-)
-
+from Autodesk.Revit.DB import FilteredElementCollector, View, ViewSheet, Element
+    
+from Autodesk.Revit.DB import ViewPlacementOnSheetStatus as VPS
 
 def get_all_views(doc):
     views = FilteredElementCollector(doc)\
@@ -46,4 +44,4 @@ def exist_view(doc, name):
 
 
 def is_view_placed(view):
-    return view.GetPlacementOnSheetStatus() != ViewPlacementOnSheetStatus.NotPlaced
+    return view.GetPlacementOnSheetStatus() in (VPS.PartiallyPlaced, VPS.CompletelyPlaced)
